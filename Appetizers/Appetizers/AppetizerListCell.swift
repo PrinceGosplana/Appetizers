@@ -13,14 +13,10 @@ struct AppetizerListCell: View {
 
     var body: some View {
         HStack {
-            Image(systemName: "birthday.cake.fill")
-                .symbolRenderingMode(.multicolor)
-                .resizable()
-                .foregroundStyle(.mint)
+            AppetizerRemoteImage(urlString: appetizer.imageURL)
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 120, height: 90)
                 .cornerRadius(8)
-                .colorMultiply(.orange)
             VStack(alignment: .leading, spacing: 5) {
                 Text(appetizer.name)
                     .font(.title2)
