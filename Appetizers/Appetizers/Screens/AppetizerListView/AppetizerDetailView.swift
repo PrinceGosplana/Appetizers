@@ -29,35 +29,9 @@ struct AppetizerDetailView: View {
                     .padding()
 
                 HStack(spacing: 40) {
-                    VStack {
-                        Text("Calories")
-                            .bold()
-                            .font(.caption)
-                        Text("\(appetizer.calories)")
-                            .foregroundStyle(.secondary)
-                            .fontWeight(.semibold)
-                            .italic()
-                    }
-
-                    VStack {
-                        Text("Carbs")
-                            .bold()
-                            .font(.caption)
-                        Text("\(appetizer.carbs)")
-                            .foregroundStyle(.secondary)
-                            .fontWeight(.semibold)
-                            .italic()
-                    }
-
-                    VStack {
-                        Text("Protein")
-                            .bold()
-                            .font(.caption)
-                        Text("\(appetizer.protein)")
-                            .foregroundStyle(.secondary)
-                            .fontWeight(.semibold)
-                            .italic()
-                    }
+                    NutritionInfo(title: "Calories", value: appetizer.calories)
+                    NutritionInfo(title: "Carbs", value: appetizer.carbs)
+                    NutritionInfo(title: "Protein", value: appetizer.protein)
                 }
             }
 
@@ -66,13 +40,7 @@ struct AppetizerDetailView: View {
             Button {
 
             } label: {
-                Text(appetizer.price.formatted( .currency(code: "USD").locale(Locale(identifier: "us-UA"))) + " - Add to Order")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .frame(width: 260, height: 50)
-                    .foregroundStyle(.white)
-                    .background(.braindPrimary)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                APButton(title: "\(appetizer.price.formatted( .currency(code: "USD").locale(Locale(identifier: "us-UA")))) - Add to Order")
             }
             .padding(.bottom, 30)
         }
@@ -84,17 +52,7 @@ struct AppetizerDetailView: View {
             Button {
                 isShowingDetail = false
         } label: {
-            ZStack {
-                Circle()
-                    .frame(width: 30, height: 30)
-                    .foregroundStyle(.white)
-                    .opacity(0.6)
-
-                Image(systemName: "xmark")
-                    .imageScale(.small)
-                    .frame(width: 44, height: 44)
-                    .foregroundStyle(.black)
-            }
+            XDismissButton()
         }
             , alignment: .topTrailing)
     }
@@ -102,4 +60,22 @@ struct AppetizerDetailView: View {
 
 #Preview {
     AppetizerDetailView(appetizer: MockData.sampleAppetizer, isShowingDetail: .constant(false))
+}
+
+struct NutritionInfo: View {
+
+    let title: String
+    let value: Int
+
+    var body: some View {
+        VStack {
+            Text(title)
+                .bold()
+                .font(.caption)
+            Text("\(value)")
+                .foregroundStyle(.secondary)
+                .fontWeight(.semibold)
+                .italic()
+        }
+    }
 }
