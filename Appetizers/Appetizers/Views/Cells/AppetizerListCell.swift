@@ -13,10 +13,16 @@ struct AppetizerListCell: View {
 
     var body: some View {
         HStack {
-            AppetizerRemoteImage(urlString: appetizer.imageURL)
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 120, height: 90)
-                .cornerRadius(8)
+            AsyncImage(url: URL(string: appetizer.imageURL)) { image in
+                image
+                    .resizable()
+                    .modifier(ListCellImageStyle())
+            } placeholder: {
+                Image(.foodPlaceholder)
+                    .resizable()
+                    .modifier(ListCellImageStyle())
+            }
+
             VStack(alignment: .leading, spacing: 5) {
                 Text(appetizer.name)
                     .font(.title2)
@@ -30,4 +36,14 @@ struct AppetizerListCell: View {
 
 #Preview {
     AppetizerListCell(appetizer: MockData.sampleAppetizer)
+}
+
+struct ListCellImageStyle: ViewModifier {
+
+    func body(content: Content) -> some View {
+        content
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 120, height: 90)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
 }
