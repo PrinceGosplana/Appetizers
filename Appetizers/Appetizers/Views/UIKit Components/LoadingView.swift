@@ -24,7 +24,11 @@ struct LoadingView: View {
             Color(.systemBackground)
                 .ignoresSafeArea()
 
-            ActivityIndicator()
+//            ActivityIndicator()
+//            ProgressView("Loading...")
+            ProgressView()
+                .tint(.brandPrimary)
+                .scaleEffect(2)
         }
     }
 }
